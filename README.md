@@ -1,4 +1,5 @@
 # Rs-Agent-Ai
+<img width="1408" height="768" alt="Gemini_Generated_Image_jq66aujq66aujq66" src="https://github.com/user-attachments/assets/8fec088e-8b3b-4e57-a1fa-692aecd1e6da" />
 
 Agente de IA de escritorio para **Windows y Linux**, multi-proveedor (Claude, ChatGPT, Gemini, DeepSeek, NVIDIA, OpenRouter y URL compatible con OpenAI).
 
