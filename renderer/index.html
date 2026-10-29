@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rs-Agent-Ai</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header id="titlebar">
+  <div class="brand"><span class="logo"></span>Rs-Agent-Ai</div>
+  <button id="pill" class="pill chatonly" aria-haspopup="true"></button>
+  <div id="pop" hidden>
+    <label>Proveedor<select id="provider"></select></label>
+    <label>Key<span class="row2"><select id="keySel"></select><button id="keyBtn" class="btn">+ Key</button></span></label>
+    <label>Modelo<span class="row2"><select id="modelList"></select><button id="refreshModels" class="btn" title="Actualizar modelos">↻</button></span></label>
+    <input id="model" placeholder="o escribe el modelo">
+    <label>Esfuerzo
+      <select id="effort"><option value="auto">Auto</option><option value="low">Bajo</option><option value="medium">Medio</option><option value="high">Alto</option></select>
+    </label>
+    <input id="customUrl" placeholder="URL base .../chat/completions" hidden>
+  </div>
+  <span id="wsChip" class="wschip workonly"></span>
+  <span class="grow"></span>
+  <button id="undo" class="btn workonly" title="Deshacer el último cambio de archivos">Deshacer</button>
+  <button id="permBtn" class="btn workonly" title="Reglas de permisos del proyecto">Permisos</button>
+</header>
+<div id="app">
+  <aside id="side">
+    <button id="newChat" class="btn primary big"></button>
+    <button id="newWork" class="btn big2"></button>
+    <nav id="nav"></nav>
+    <div id="recents"></div>
+    <div class="seg theme" id="themeSeg"><button data-th="light">Claro</button><button data-th="dark">Oscuro</button></div>
+    <div id="navCfg"></div>
+  </aside>
+  <div id="stage">
+    <section id="vHome" class="view"></section>
+    <section id="vChat" class="view" hidden>
+      <div id="tree" hidden></div>
+      <div id="col">
+        <div id="logs"><main id="logChat" class="log"></main><main id="logWork" class="log" hidden></main></div>
+        <div id="composer">
+          <div class="cbox">
+            <div id="ac" role="listbox" hidden></div>
+            <div id="chips" hidden></div>
+            <div class="crowi">
+              <div id="modeWrap" class="workonly">
+                <button id="modeBtn" class="modebtn" aria-haspopup="listbox" title="Modo del agente"></button>
+                <div id="modeMenu" role="listbox" hidden></div>
+              </div>
+              <textarea id="input" rows="1" placeholder="Escribe un mensaje o / para usar una skill..."></textarea>
+              <button id="send" class="sendbtn" aria-label="Enviar"></button>
+              <button id="stop" class="sendbtn" aria-label="Detener" hidden></button>
+            </div>
+          </div>
+          <div id="usage" class="usage" hidden></div>
+        </div>
+      </div>
+    </section>
+    <section id="vSkills" class="view" hidden></section>
+    <section id="vAgent" class="view" hidden></section>
+    <section id="vConfig" class="view" hidden></section>
+  </div>
+</div>
+
+<dialog id="keyDlg">
+  <h3 id="keyTitle"></h3>
+  <input id="keyName" placeholder="Nombre (ej. personal, trabajo)">
+  <input id="keyInput" type="password" autocomplete="off" placeholder="Pega tu API key">
+  <div class="row"><button id="keyDel" class="btn">Quitar key activa</button><span class="grow"></span><button id="keyCancel" class="btn">Cancelar</button><button id="keySave" class="btn primary">Guardar</button></div>
+</dialog>
+
+<dialog id="permDlg">
+  <h3>Permisos del proyecto</h3>
+  <p class="dim">.agente/permisos.json</p>
+  <textarea id="permText" spellcheck="false"></textarea>
+  <div id="permErr"></div>
+  <div class="row"><span class="grow"></span><button id="permCancel" class="btn">Cancelar</button><button id="permSave" class="btn primary">Guardar</button></div>
+</dialog>
+
+<dialog id="skillDlg">
+  <h3 id="skTitle">Nueva skill</h3>
+  <input id="skName" placeholder="Nombre">
+  <input id="skCmd" placeholder="Comando (ej. revisar)">
+  <input id="skDesc" placeholder="Descripción corta">
+  <textarea id="skText" rows="6" placeholder="Instrucciones que recibirá el modelo"></textarea>
+  <div id="skErr"></div>
+  <div class="row"><button id="skDel" class="btn">Eliminar</button><span class="grow"></span><button id="skCancel" class="btn">Cancelar</button><button id="skSave" class="btn primary">Guardar</button></div>
+</dialog>
+<script src="renderer.js"></script>
+</body>
+</html>

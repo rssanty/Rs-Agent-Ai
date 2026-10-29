@@ -1,0 +1,29 @@
+name: instaladores
+on:
+  workflow_dispatch:
+  push:
+    tags: ['v*']
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  CSC_IDENTITY_AUTO_DISCOVERY: false
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: npm ci || npm install
+      - run: npm run dist
+      - uses: actions/upload-artifact@v4
+        with:
+          name: instalador-${{ matrix.os }}
+          path: |
+            dist/*.exe
+            dist/*.AppImage
+            dist/*.deb
+          if-no-files-found: error

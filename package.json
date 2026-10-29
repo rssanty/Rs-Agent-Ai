@@ -1,0 +1,49 @@
+{
+  "name": "rs-agent-ai",
+  "version": "0.2.0",
+  "description": "Rs-Agent-Ai: agente de IA de escritorio multi-proveedor",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test",
+    "dist": "electron-builder",
+    "dist:dir": "electron-builder --dir",
+    "selftest": "node betatester/selftest.js"
+  },
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.1.8"
+  },
+  "productName": "Rs-Agent-Ai",
+  "build": {
+    "appId": "com.rs.agentai",
+    "productName": "Rs-Agent-Ai",
+    "files": [
+      "**/*",
+      "!tests/**",
+      "!.github/**",
+      "!.agente/**"
+    ],
+    "asarUnpack": [
+      "betatester/inject.js"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.ico"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "category": "Development",
+      "icon": "build/icon.png"
+    },
+    "icon": "build/icon.png"
+  },
+  "author": "@Rs_Santi14",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=20.3"
+  }
+}
